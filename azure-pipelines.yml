@@ -14,7 +14,7 @@ steps:
   inputs:
     solution: '**/samples/databases/wide-world-importers/wwi-dw-ssdt/WideWorldImportersDW.sln'
     msbuildArguments: '/t:build /p:CmdLineInMemoryStorage=True'
-- script: dir samples/databases/wide-world-importers/wwi-dw-ssdt/bin/Debug
+- script: dir samples\databases\wide-world-importers\wwi-dw-ssdt\bin\Debug
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: 'samples/databases/wide-world-importers/wwi-dw-ssdt/bin/Debug'
