@@ -9,25 +9,13 @@ trigger:
 pool:
   vmImage: 'windows-latest'
 
-variables:
-  solution: '**/samples/databases/wide-world-importers/wwi-dw-ssdt/WideWorldImportersDW.sln'
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
-
 steps:
-- task: NuGetToolInstaller@0
-
-- task: NuGetCommand@2
+- task: MSBuild@1
   inputs:
-    restoreSolution: '$(solution)'
-
-- task: VSBuild@1
+    solution: '**/samples/databases/wide-world-importers/wwi-dw-ssdt/WideWorldImportersDW.sln'
+    msbuildArguments: '/t:build /p:CmdLineInMemoryStorage=True'
+- task: PublishBuildArtifacts@1
   inputs:
-    solution: '$(solution)'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
-
-- task: VSTest@2
-  inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    PathtoPublish: 'samples/databases/wide-world-importers/wwi-dw-ssdt//bin/Debug'
+    ArtifactName: 'WideWorldImportersDatabase'
+    publishLocation: 'Container'
